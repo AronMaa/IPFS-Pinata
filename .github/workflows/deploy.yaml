@@ -10,18 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
-        run: npm run build  # Assurez-vous d'avoir un script 'build' dans votre package.json
+      - name: Prepare files for deployment
+        run: echo "Skipping build step, ensuring files are in place"
 
       - name: Deploy to IPFS via Pinata
         uses: anantaramdas/ipfs-pinata-deploy-action@v1.6.4
         with:
-          path: './build'  # Changez cela si votre build produit les fichiers ailleurs
-          pin-name: 'Nom de votre site'
+          path: '.'  # Change si tes fichiers sont dans un dossier spécifique
+          pin-name: 'Nom de ton projet'
           pinata-api-key: ${{ secrets.PINATA_API_KEY }}
           pinata-secret-api-key: ${{ secrets.PINATA_SECRET_API_KEY }}
